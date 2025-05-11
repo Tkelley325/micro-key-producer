@@ -80,7 +80,7 @@ function parentSKToLamportPK(parentSK: Uint8Array, index: number) {
  * @param ikm - secret octet string
  * @param keyInfo - additional key information
  */
-export function hkdfModR(ikm: Uint8Array, keyInfo: Uint8Array = new Uint8Array()): Uint8Array {
+export function hkdfModR(ikm: Uint8Array, keyInfo: Uint8Array = Uint8Array.of()): Uint8Array {
   ikm = ensureBytes('IKM', ikm);
   keyInfo = ensureBytes('key information', keyInfo);
   let salt = utf8ToBytes('BLS-SIG-KEYGEN-SALT-');

@@ -12,7 +12,7 @@ function parseSecret(secret: string): Uint8Array {
 }
 
 export function parse(otp: string): OTPOpts {
-  const opts = { secret: new Uint8Array(), algorithm: 'sha1', digits: 6, interval: 30 };
+  const opts = { secret: Uint8Array.of(), algorithm: 'sha1', digits: 6, interval: 30 };
   if (otp.startsWith('otpauth://totp/')) {
     // @ts-ignore
     if (typeof URL === 'undefined') throw new Error('global variable URL must be defined');

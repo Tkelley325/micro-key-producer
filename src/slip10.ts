@@ -14,7 +14,7 @@ import {
 
 export const MASTER_SECRET: Uint8Array = utf8ToBytes('ed25519 seed');
 export const HARDENED_OFFSET: number = 0x80000000;
-const ZERO = new Uint8Array([0]);
+const ZERO = Uint8Array.of(0);
 
 type Hex = Uint8Array | string;
 function ensureBytes(b: Hex, ...lengths: number[]): Uint8Array {
