@@ -1,7 +1,7 @@
 /*! micro-key-producer - MIT License (c) 2024 Paul Miller (paulmillr.com) */
 import { ed25519 } from '@noble/curves/ed25519';
-import { sha256 } from '@noble/hashes/sha2';
-import { concatBytes, randomBytes } from '@noble/hashes/utils';
+import { sha256 } from '@noble/hashes/sha2.js';
+import { concatBytes, randomBytes } from '@noble/hashes/utils.js';
 import { base64 } from '@scure/base';
 import * as P from 'micro-packed';
 import { base64armor } from './utils.js';

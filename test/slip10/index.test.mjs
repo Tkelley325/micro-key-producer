@@ -1,7 +1,7 @@
 import { deepStrictEqual, throws } from 'node:assert';
 import { HDKey } from '../../esm/slip10.js';
 import { describe, should } from 'micro-should';
-import { bytesToHex } from '@noble/hashes/utils';
+import { bytesToHex } from '@noble/hashes/utils.js';
 import { fixtures } from './slip-0010.fixture.mjs';
 
 // https://github.com/satoshilabs/slips/blob/master/slip-0010.md

@@ -7,10 +7,10 @@ import {
   numberToHexUnpadded,
 } from '@noble/curves/abstract/utils';
 import { ed25519, x25519 } from '@noble/curves/ed25519';
-import { ripemd160, sha1 } from '@noble/hashes/legacy';
-import { sha256, sha512 } from '@noble/hashes/sha2';
-import { sha3_256 } from '@noble/hashes/sha3';
-import { type CHash, concatBytes, isBytes, randomBytes } from '@noble/hashes/utils';
+import { ripemd160, sha1 } from '@noble/hashes/legacy.js';
+import { sha256, sha512 } from '@noble/hashes/sha2.js';
+import { sha3_256 } from '@noble/hashes/sha3.js';
+import { type CHash, concatBytes, isBytes, randomBytes } from '@noble/hashes/utils.js';
 import { hex, utf8 } from '@scure/base';
 import * as P from 'micro-packed';
 import { base64armor } from './utils.js';

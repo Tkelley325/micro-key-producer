@@ -1,7 +1,7 @@
 import { deepStrictEqual } from 'node:assert';
 import cp from 'node:child_process';
 import fs from 'node:fs';
-import { randomBytes } from '@noble/hashes/utils';
+import { randomBytes } from '@noble/hashes/utils.js';
 import pgp from '../esm/pgp.js';
 import { should } from 'micro-should';
 

@@ -1,8 +1,8 @@
 /*! micro-key-producer - MIT License (c) 2024 Paul Miller (paulmillr.com) */
 import { ed25519 } from '@noble/curves/ed25519';
-import { hmac } from '@noble/hashes/hmac';
-import { ripemd160 } from '@noble/hashes/legacy';
-import { sha256, sha512 } from '@noble/hashes/sha2';
+import { hmac } from '@noble/hashes/hmac.js';
+import { ripemd160 } from '@noble/hashes/legacy.js';
+import { sha256, sha512 } from '@noble/hashes/sha2.js';
 import {
   abytes,
   bytesToHex,
@@ -10,7 +10,7 @@ import {
   createView,
   hexToBytes,
   utf8ToBytes,
-} from '@noble/hashes/utils';
+} from '@noble/hashes/utils.js';
 
 export const MASTER_SECRET: Uint8Array = utf8ToBytes('ed25519 seed');
 export const HARDENED_OFFSET: number = 0x80000000;

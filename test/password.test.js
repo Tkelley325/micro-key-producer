@@ -1,4 +1,5 @@
-import { sha256 } from '@noble/hashes/sha2';
+import { sha256 } from '@noble/hashes/sha2.js';
+import { utf8ToBytes } from '@noble/hashes/utils.js';
 import { describe, should } from 'micro-should';
 import assert from 'node:assert';
 import * as pwd from '../esm/password.js';
@@ -33,7 +34,7 @@ describe('password', () => {
     assert.deepStrictEqual(pwd.cardinalityBits(0xffff_ffff_ffff_ffffn), 63);
     assert.deepStrictEqual(pwd.cardinalityBits(0xffff_ffff_ffff_fff0n), 63);
     assert.deepStrictEqual(pwd.cardinalityBits(0x1fff_ffff_ffff_fff0n), 60);
-    const entropy = sha256('hello world');
+    const entropy = sha256(utf8ToBytes('hello world'));
     // Inverse works
     for (const m of ['@Ss-ss-ss', '************', 'AaAa+AaA11..@@@@'])
       assert.deepStrictEqual(pwd.mask(m).inverse(pwd.mask(m).apply(entropy)), entropy);
@@ -57,7 +58,7 @@ describe('password', () => {
     assert.deepStrictEqual(pwd.checkPassword('Aaaaaa3!'), true);
   });
   should('Mask generator is reversible', () => {
-    const entropy = sha256('hello world');
+    const entropy = sha256(utf8ToBytes('hello world'));
     // Inverse works
     for (const m of [
       '@Ss-ss-ss',
@@ -100,7 +101,7 @@ describe('password', () => {
       'zuJzig-0maraz-lizpyz',
     ];
     for (let i = 0; i < 10; i++) {
-      const entropy = sha256(`hello world${i}`);
+      const entropy = sha256(utf8ToBytes(`hello world${i}`));
       assert.deepStrictEqual(pwd.secureMask.apply(entropy).password, vectors[i]);
       assert.deepStrictEqual(pwd.secureMask.inverse(pwd.secureMask.apply(entropy)), entropy);
     }

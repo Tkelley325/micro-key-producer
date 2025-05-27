@@ -1,6 +1,6 @@
 import { deepStrictEqual, throws } from 'node:assert';
 import { describe, should } from 'micro-should';
-import { bytesToHex, hexToBytes } from '@noble/hashes/utils';
+import { bytesToHex, hexToBytes } from '@noble/hashes/utils.js';
 import { utf8 } from '@scure/base';
 import * as bls from '../esm/bls.js';
 
