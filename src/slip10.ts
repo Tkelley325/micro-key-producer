@@ -1,5 +1,5 @@
 /*! micro-key-producer - MIT License (c) 2024 Paul Miller (paulmillr.com) */
-import { ed25519 } from '@noble/curves/ed25519';
+import { ed25519 } from '@noble/curves/ed25519.js';
 import { hmac } from '@noble/hashes/hmac.js';
 import { ripemd160 } from '@noble/hashes/legacy.js';
 import { sha256, sha512 } from '@noble/hashes/sha2.js';

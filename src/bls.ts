@@ -1,4 +1,4 @@
-import { ctr } from '@noble/ciphers/aes';
+import { ctr } from '@noble/ciphers/aes.js';
 import { ensureBytes, numberToBytesBE } from '@noble/curves/abstract/utils';
 import { bls12_381 } from '@noble/curves/bls12-381';
 import { hkdf } from '@noble/hashes/hkdf.js';

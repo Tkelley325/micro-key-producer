@@ -1,9 +1,9 @@
+import { randomBytes } from '@noble/hashes/utils.js';
+import { should } from 'micro-should';
 import { deepStrictEqual } from 'node:assert';
 import cp from 'node:child_process';
 import fs from 'node:fs';
-import { randomBytes } from '@noble/hashes/utils.js';
-import pgp from '../esm/pgp.js';
-import { should } from 'micro-should';
+import pgp from '../src/pgp.ts';
 
 // Warning: this test will execute system command `gpg`
 

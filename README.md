@@ -126,7 +126,7 @@ Conforms to EIP-2333 / EIP-2334 / EIP-2335. Online demo: [eip2333-tool](https://
 
 ```js
 import * as pwd from 'micro-key-producer/password.js';
-import { randomBytes } from '@noble/hashes/utils';
+import { randomBytes } from '@noble/hashes/utils.js';
 
 const seed = randomBytes(32);
 const pass = pwd.secureMask.apply(seed).password;

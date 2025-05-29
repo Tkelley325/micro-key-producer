@@ -2,7 +2,7 @@ import { sha256 } from '@noble/hashes/sha2.js';
 import { utf8ToBytes } from '@noble/hashes/utils.js';
 import { describe, should } from 'micro-should';
 import assert from 'node:assert';
-import * as pwd from '../esm/password.js';
+import * as pwd from '../src/password.ts';
 
 describe('password', () => {
   should('Set utils', () => {
