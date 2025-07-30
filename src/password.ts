@@ -1,5 +1,5 @@
 /*! micro-key-producer - MIT License (c) 2024 Paul Miller (paulmillr.com) */
-import { bytesToNumberBE, numberToVarBytesBE } from '@noble/curves/abstract/utils.js';
+import { bytesToNumberBE, numberToVarBytesBE } from '@noble/curves/utils.js';
 
 export function zip<A, B>(a: A[], b: B[]): [A, B][] {
   let res: [A, B][] = [];
