@@ -419,7 +419,7 @@ function deriveKey(hash: string, len: number, password: Bytes, salt?: Bytes, cou
   // Important: there is difference between zero and empty count
   count = count === undefined ? 0 : EXPBIAS6(count);
   const data = salt ? concatBytes(salt, password) : password;
-  let out = new Uint8Array([]);
+  let out: Uint8Array = Uint8Array.of();
   const hashC = Hash[hash];
   if (!hashC) throw new Error('PGP.deriveKey: unknown hash');
   const rounds = Math.ceil(len / hashC.outputLen);
