@@ -8,6 +8,8 @@ import './pgp.test.ts';
 import './slip10/index.test.mjs';
 import './ssh.test.ts';
 import './tor.test.ts';
+import './convert.test.ts';
+
 // Not enabled by default because requires gpg installed && interactive commands
 //require('./pgp_keygen.test.ts');
 

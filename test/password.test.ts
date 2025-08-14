@@ -1,7 +1,7 @@
 import { sha256 } from '@noble/hashes/sha2.js';
 import { utf8ToBytes } from '@noble/hashes/utils.js';
 import { describe, should } from 'micro-should';
-import assert from 'node:assert';
+import { deepStrictEqual as eql } from 'node:assert';
 import * as pwd from '../src/password.ts';
 
 describe('password', () => {
@@ -9,53 +9,53 @@ describe('password', () => {
     const a = new Set([1, 2, 3, 4]);
     const b = new Set([2, 3, 4, 5]);
     const c = new Set([3, 4, 5, 6]);
-    assert.deepStrictEqual(pwd.and(a, b, c), new Set([3, 4]));
-    assert.deepStrictEqual(pwd.or(a, b, c), new Set([1, 2, 3, 4, 5, 6]));
+    eql(pwd.utils.and(a, b, c), new Set([3, 4]));
+    eql(pwd.utils.or(a, b, c), new Set([1, 2, 3, 4, 5, 6]));
 
     const aa = new Set('abc');
     const bb = new Set('def');
     const cc = new Set('qr');
     // prettier-ignore
-    assert.deepStrictEqual(pwd.product(aa, bb, cc), new Set([
+    eql(pwd.utils.product(aa, bb, cc), new Set([
       'adq', 'adr', 'aeq', 'aer', 'afq', 'afr',
       'bdq', 'bdr', 'beq', 'ber', 'bfq', 'bfr',
       'cdq', 'cdr', 'ceq', 'cer', 'cfq', 'cfr',
     ]));
   });
   should('Mask utils', () => {
-    assert.deepStrictEqual(pwd.mask('11').cardinality, 100n);
-    assert.deepStrictEqual(pwd.mask('aa').cardinality, 26n * 26n);
-    assert.deepStrictEqual(pwd.mask('aaaa-aaaa').cardinality, 26n ** 8n);
+    eql(pwd.mask('11').cardinality, 100n);
+    eql(pwd.mask('aa').cardinality, 26n * 26n);
+    eql(pwd.mask('aaaa-aaaa').cardinality, 26n ** 8n);
     // len(bin(100).replace('0b',''))-1 (since last bit is not fully used if number is not power of two)
-    assert.deepStrictEqual(pwd.cardinalityBits(100n), 6);
-    assert.deepStrictEqual(pwd.cardinalityBits(64n), 6);
-    assert.deepStrictEqual(pwd.cardinalityBits(63n), 5);
-    assert.deepStrictEqual(pwd.cardinalityBits(31n), 4);
-    assert.deepStrictEqual(pwd.cardinalityBits(0xffff_ffff_ffff_ffffn), 63);
-    assert.deepStrictEqual(pwd.cardinalityBits(0xffff_ffff_ffff_fff0n), 63);
-    assert.deepStrictEqual(pwd.cardinalityBits(0x1fff_ffff_ffff_fff0n), 60);
+    eql(pwd.utils.cardinalityBits(100n), 6);
+    eql(pwd.utils.cardinalityBits(64n), 6);
+    eql(pwd.utils.cardinalityBits(63n), 5);
+    eql(pwd.utils.cardinalityBits(31n), 4);
+    eql(pwd.utils.cardinalityBits(0xffff_ffff_ffff_ffffn), 63);
+    eql(pwd.utils.cardinalityBits(0xffff_ffff_ffff_fff0n), 63);
+    eql(pwd.utils.cardinalityBits(0x1fff_ffff_ffff_fff0n), 60);
     const entropy = sha256(utf8ToBytes('hello world'));
     // Inverse works
     for (const m of ['@Ss-ss-ss', '************', 'AaAa+AaA11..@@@@'])
-      assert.deepStrictEqual(pwd.mask(m).inverse(pwd.mask(m).apply(entropy)), entropy);
+      eql(pwd.mask(m).inverse(pwd.mask(m).apply(entropy)), entropy);
     // Just for research
-    assert.deepStrictEqual(pwd.mask('aa').entropy, 9);
-    assert.deepStrictEqual(pwd.mask('Aaaaaa@1').entropy, 36);
-    assert.deepStrictEqual(pwd.mask('********').entropy, 52);
-    assert.deepStrictEqual(pwd.mask('****-****-*').entropy, 58);
-    assert.deepStrictEqual(pwd.mask('****-****-**').entropy, 65);
-    assert.deepStrictEqual(pwd.mask('****-****-***').entropy, 72);
-    assert.deepStrictEqual(pwd.mask('****-****-****').entropy, 78);
-    assert.deepStrictEqual(pwd.mask('@Ss-ss-ss').entropy, 46);
-    assert.deepStrictEqual(pwd.mask('Sss-sss-ssc1').entropy, 62);
-    assert.deepStrictEqual(pwd.mask('Cvccvc-cvccvc-cvccv1').entropy, 66);
+    eql(pwd.mask('aa').entropy, 9);
+    eql(pwd.mask('Aaaaaa@1').entropy, 36);
+    eql(pwd.mask('********').entropy, 52);
+    eql(pwd.mask('****-****-*').entropy, 58);
+    eql(pwd.mask('****-****-**').entropy, 65);
+    eql(pwd.mask('****-****-***').entropy, 72);
+    eql(pwd.mask('****-****-****').entropy, 78);
+    eql(pwd.mask('@Ss-ss-ss').entropy, 46);
+    eql(pwd.mask('Sss-sss-ssc1').entropy, 62);
+    eql(pwd.mask('Cvccvc-cvccvc-cvccv1').entropy, 66);
   });
   should('checkPassword', () => {
-    assert.deepStrictEqual(pwd.checkPassword('aa'), false);
-    assert.deepStrictEqual(pwd.checkPassword('aaaaaaaa'), false);
-    assert.deepStrictEqual(pwd.checkPassword('Aaaaaaaa'), false);
-    assert.deepStrictEqual(pwd.checkPassword('Aaaaaa3a'), false);
-    assert.deepStrictEqual(pwd.checkPassword('Aaaaaa3!'), true);
+    eql(pwd.checkPassword('aa'), false);
+    eql(pwd.checkPassword('aaaaaaaa'), false);
+    eql(pwd.checkPassword('Aaaaaaaa'), false);
+    eql(pwd.checkPassword('Aaaaaa3a'), false);
+    eql(pwd.checkPassword('Aaaaaa3!'), true);
   });
   should('Mask generator is reversible', () => {
     const entropy = sha256(utf8ToBytes('hello world'));
@@ -67,24 +67,15 @@ describe('password', () => {
       '1111111-11111-1111-11-1',
       '*1*AnSs@Nl',
     ]) {
-      assert.deepStrictEqual(pwd.mask(m).inverse(pwd.mask(m).apply(entropy)), entropy);
+      eql(pwd.mask(m).inverse(pwd.mask(m).apply(entropy)), entropy);
     }
-    assert.deepStrictEqual('*Tavy-qyjy-vemo', pwd.mask('@Ss-ss-ss').apply(entropy).password);
+    eql('*Tavy-qyjy-vemo', pwd.mask('@Ss-ss-ss').apply(entropy).password);
     // Adding more symbols to mask doesn't change previous
-    assert.deepStrictEqual(
-      '*Tavy-qyjy-vemo-pysu',
-      pwd.mask('@Ss-ss-ss-ss').apply(entropy).password
-    );
-    assert.deepStrictEqual(
-      'Mavysa-dobywi-nuwem2',
-      pwd.mask('Sss-sss-ssc1').apply(entropy).password
-    );
-    assert.deepStrictEqual(
-      'Mavmuq-xadgys-poqsa5',
-      pwd.mask('Cvccvc-cvccvc-cvccv1').apply(entropy).password
-    );
-    assert.deepStrictEqual('mavysa', pwd.mask('cvcvcv').apply(entropy).password);
-    assert.deepStrictEqual('Mav-muq-xad', pwd.mask('Cvc-cvc-cvc').apply(entropy).password);
+    eql('*Tavy-qyjy-vemo-pysu', pwd.mask('@Ss-ss-ss-ss').apply(entropy).password);
+    eql('Mavysa-dobywi-nuwem2', pwd.mask('Sss-sss-ssc1').apply(entropy).password);
+    eql('Mavmuq-xadgys-poqsa5', pwd.mask('Cvccvc-cvccvc-cvccv1').apply(entropy).password);
+    eql('mavysa', pwd.mask('cvcvcv').apply(entropy).password);
+    eql('Mav-muq-xad', pwd.mask('Cvc-cvc-cvc').apply(entropy).password);
   });
   should('Secure mask', () => {
     // Basic sanity check that masks looks like safari secure password
@@ -102,13 +93,13 @@ describe('password', () => {
     ];
     for (let i = 0; i < 10; i++) {
       const entropy = sha256(utf8ToBytes(`hello world${i}`));
-      assert.deepStrictEqual(pwd.secureMask.apply(entropy).password, vectors[i]);
-      assert.deepStrictEqual(pwd.secureMask.inverse(pwd.secureMask.apply(entropy)), entropy);
+      eql(pwd.secureMask.apply(entropy).password, vectors[i]);
+      eql(pwd.secureMask.inverse(pwd.secureMask.apply(entropy)), entropy);
     }
   });
   should('Estimates', () => {
     // Manually  sanity checked via zxcvbn && recalc
-    assert.deepStrictEqual(pwd.mask('cvcvcv').estimate(), {
+    eql(pwd.mask('cvcvcv').estimate(), {
       score: 'somewhat guessable',
       guesses: {
         online_throttling: '24mo',
@@ -123,7 +114,7 @@ describe('password', () => {
         pbkdf2: 0,
       },
     });
-    assert.deepStrictEqual(pwd.mask('Cvc-cvc-cvc').estimate(), {
+    eql(pwd.mask('Cvc-cvc-cvc').estimate(), {
       score: 'very unguessable',
       guesses: {
         online_throttling: 'centuries',
@@ -138,7 +129,7 @@ describe('password', () => {
         pbkdf2: 4.620519793074582,
       },
     });
-    assert.deepStrictEqual(pwd.mask('Cvccvc-cvccvc-cvccv1').estimate(), {
+    eql(pwd.mask('Cvccvc-cvccvc-cvccv1').estimate(), {
       score: 'very unguessable',
       guesses: {
         online_throttling: 'centuries',
