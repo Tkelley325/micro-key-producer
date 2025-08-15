@@ -7,6 +7,7 @@ Produces secure passwords & keys for WebCrypto, SSH, PGP, SLIP10, OTP and many o
 - 🎲 Create deterministic (known) or random keys
 - 🔑 SSH, PGP, TOR, IPNS, SLIP10, BLS12-381 ETH keys
 - 💾 WebCrypto-compatible JWK, DER, PKCS#8, SPKI converter
+- 🔗 gpgkp(1): Sign git commits without gnupg
 - 📟 Generate secure passwords & OTP 2FA codes
 
 Used in: [terminal7 WebRTC terminal multiplexer](https://github.com/tuzig/terminal7).
@@ -35,6 +36,7 @@ import { randomBytes } from 'micro-key-producer/utils.js';
   - [Key generation: deterministic vs random seeds](#key-generation-deterministic-vs-random-seeds)
   - [ssh: ed25519 keys](#ssh-ed25519-keys)
   - [pgp: ed25519 keys](#pgp-ed25519-keys)
+    - [gpgkp(1): Sign git commits without gnupg](#gpgkp1-sign-git-commits-without-gnupg)
   - [slip10: bip32-like ed25519 keys](#slip10-bip32-like-ed25519-keys)
   - [convert: key converter for JWK, DER, PKCS, SPKI](#convert-key-converter-for-jwk-der-pkcs-spki)
   - [tor: keys and addresses](#tor-keys-and-addresses)
@@ -105,6 +107,17 @@ console.log(key.fingerprint, key.privateKey, key.publicKey);
 The PGP (GPG) keys conform to
 [RFC 4880](https://datatracker.ietf.org/doc/html/rfc4880) &
 [RFC 6637](https://datatracker.ietf.org/doc/html/rfc6637). Only ed25519 algorithm is currently supported.
+
+#### gpgkp(1): Sign git commits without gnupg
+
+```sh
+
+git config commit.gpgsign true
+git config user.signingkey <KEY_ID>
+git config gpg.program <PATH_TO_KEY_PRODUCER>/bin/gpgkp.js
+```
+
+`gpgkp` binary is installed by the package. You can use it to sign and verify git commits.
 
 ### slip10: bip32-like ed25519 keys
 

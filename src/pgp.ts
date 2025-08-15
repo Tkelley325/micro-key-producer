@@ -10,7 +10,7 @@ import {
 import { ripemd160, sha1 } from '@noble/hashes/legacy.js';
 import { sha256, sha512 } from '@noble/hashes/sha2.js';
 import { sha3_256 } from '@noble/hashes/sha3.js';
-import { type CHash, concatBytes, isBytes, randomBytes } from '@noble/hashes/utils.js';
+import { concatBytes, isBytes, randomBytes, type CHash } from '@noble/hashes/utils.js';
 import { hex, utf8 } from '@scure/base';
 import * as P from 'micro-packed';
 import { base64armor } from './utils.ts';
