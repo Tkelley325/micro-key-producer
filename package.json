@@ -29,7 +29,6 @@
   "scripts": {
     "build": "tsc",
     "build:release": "npx --no @paulmillr/jsbt esbuild test/build",
-    "lint": "prettier --check src",
     "format": "prettier --write bin 'src/**/*.{js,ts}' 'test/*.ts'",
     "test": "node --experimental-strip-types --no-warnings test/index.ts",
     "test:bun": "bun test/index.ts",
