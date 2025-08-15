@@ -8,6 +8,9 @@
     "*.map",
     "src"
   ],
+  "bin": {
+    "gpgkp": "bin/gpgkp.js"
+  },
   "dependencies": {
     "@noble/ciphers": "2.0.0-beta.3",
     "@noble/curves": "2.0.0-beta.2",
@@ -17,14 +20,11 @@
   },
   "devDependencies": {
     "@paulmillr/jsbt": "0.4.1",
-    "@types/node": "22.15.23",
+    "@types/node": "24.2.1",
     "micro-bmark": "0.4.1",
     "micro-should": "0.5.3",
     "prettier": "3.6.2",
     "typescript": "5.9.2"
-  },
-  "bin": {
-    "gpgkp": "bin/gpgkp.js"
   },
   "scripts": {
     "build": "tsc",
@@ -35,17 +35,6 @@
     "test:bun": "bun test/index.ts",
     "test:deno": "deno --allow-env --allow-read test/index.ts",
     "test:gpgkp": "node test/pgp-integration.test.ts"
-  },
-  "sideEffects": false,
-  "type": "module",
-  "main": "./index.js",
-  "module": "./index.js",
-  "author": "Paul Miller (https://paulmillr.com)",
-  "license": "MIT",
-  "homepage": "https://github.com/paulmillr/micro-key-producer",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/paulmillr/micro-key-producer.git"
   },
   "keywords": [
     "ed25519",
@@ -60,5 +49,16 @@
     "ec",
     "elliptic"
   ],
-  "funding": "https://paulmillr.com/funding/"
+  "funding": "https://paulmillr.com/funding/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulmillr/micro-key-producer.git"
+  },
+  "type": "module",
+  "main": "index.js",
+  "module": "index.js",
+  "types": "index.d.ts",
+  "sideEffects": false,
+  "author": "Paul Miller (https://paulmillr.com)",
+  "license": "MIT"
 }
